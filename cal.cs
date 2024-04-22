@@ -17,9 +17,11 @@ namespace main_Program
                                 "        July         ", "       August        ", "      September      ",
                                 "       October       ", "      November       ", "      December       "};
             DateTime FirstOfMonth = new DateTime(y, m, 1);
+            DateTime Today = DateTime.Today;
             string one_code = Convert.ToString(FirstOfMonth.DayOfWeek).Substring(0, 2);
             string big_days = "";
-            string[] final = { months[m - 1], " " + String.Join(' ', days), "", "", "", "", "", ""};
+            bool prev = false;
+            string[] final = { months[m - 1], " " + String.Join(' ', days), "", "", "", "", "", "" };
 
             foreach (string day in days)
             {
@@ -29,43 +31,58 @@ namespace main_Program
                 }
                 big_days += "   ";
             }
-            for (int i = 1; i <= System.DateTime.DaysInMonth(y, m); i++)
+            for (int d = 1; d <= System.DateTime.DaysInMonth(y, m); d++)
             {
-                if (i < 10)
+                DateTime test_day = new DateTime(y, m, d);
+                bool next = test_day == Today;
+
+                if (next)
                 {
-                    big_days += " ";
+                    if (d < 10) { big_days += " ["; }
+                    else { big_days += "["; }
+                    prev = true;
                 }
-                big_days += " ";
-                big_days += Convert.ToString(i);
+                else if (prev)
+                {
+                    if (d < 10) { big_days += "] "; }
+                    else { big_days += "]"; }
+                    prev = false;
+                }
+                else
+                {
+                    if (d < 10) { big_days += "  "; }
+                    else { big_days += " "; }
+                }
+                big_days += Convert.ToString(d);
             }
             while (big_days.Length < 126)
             {
                 big_days += ' ';
             }
-            for (int i=0; i<big_days.Length; i += 21)
+            for (int i = 0; i < big_days.Length; i += 21)
             {
-                final[(i/21)+2] = big_days.Substring(i, 21);
+                final[(i / 21) + 2] = big_days.Substring(i, 21);
             }
             return final;
         }
 
         static string[] Year_cal(int y)
         {
-            string[] final = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+            string[] final = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
             string[,] months = { {"", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", ""},
                                  {"", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", ""},
                                  {"", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", ""},
                                  {"", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", ""}};
-            for (int i=1; i < 13; i++)
+            for (int i = 1; i < 13; i++)
             {
                 string[] month = Month_cal(i, y);
-                for (int j=0; j < 8; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     months[i - 1, j] = month[j];
                 }
             }
 
-            for (int i=0; i<3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
@@ -75,7 +92,7 @@ namespace main_Program
                         appender += months[(4 * i) + k, j];
                         appender += "   ";
                     }
-                    final[(9*i) + j] = appender;
+                    final[(9 * i) + j] = appender;
                 }
             }
 
