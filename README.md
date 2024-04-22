@@ -1,5 +1,5 @@
 # Cal
-Creates command-line calendars
+Creates command-line calendars. Based on https://programmingpraxis.com/2010/01/01/cal-2/
 
 # COMMANDS
 
