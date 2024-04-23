@@ -98,8 +98,39 @@ namespace main_Program
 
             return final;
         }
+
+        static bool check(int max, string argument)
+        {
+            int int_arg = Convert.ToInt32(argument);
+            if (int_arg >=1 & int_arg <= max) {
+                return false;
+            }
+            return true;
+        }
         static void Main(string[] args)
         {
+            foreach (string arg in args)
+            {
+                try {
+                    if (arg == "-h" | arg == "--help")
+                    {
+                        Console.WriteLine("cal - outputs a calendar for the current month.");
+                        Console.WriteLine("cal year - outputs a calendar for the year specified.");
+                        Console.WriteLine("cal month year - outputs a calendar for the month of the year specified.");
+                        Console.WriteLine("");
+                        Console.WriteLine("month - an integer between 1 and 12");
+                        Console.WriteLine("year - an integer between 1 and 9999");
+                        return;
+                    }
+                    else { int a = Convert.ToInt32(arg); }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("ERROR: Parameters provided have to be integers.");
+                    return;
+                }
+            }
+
             DateTime date = DateTime.Now;
             if (args.Length == 0)
             {
@@ -108,11 +139,26 @@ namespace main_Program
             }
             else if (args.Length == 1)
             {
+                if (check(9999, args[0]))
+                {
+                    Console.WriteLine("ERROR: Year needs to be between 1 and 9999");
+                    return;
+                }
                 string[] Curr_Year = Year_cal(Convert.ToInt32(args[0]));
                 Console.WriteLine(String.Join('\n', Curr_Year));
             }
             else if (args.Length == 2)
             {
+                if (check(12, args[0]))
+                {
+                    Console.WriteLine("ERROR: Month needs to be between 1 and 12");
+                    return;
+                }
+                else if (check(9999, args[1]))
+                {
+                    Console.WriteLine("ERROR: Year needs to be between 1 and 9999");
+                    return;
+                }
                 string[] Month = Month_cal(Convert.ToInt32(args[0]), Convert.ToInt32(args[1]));
                 Console.WriteLine(String.Join('\n', Month));
             }
