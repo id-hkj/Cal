@@ -1,0 +1,27 @@
+using System;
+using System.IO;
+
+namespace Calendar
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 100; i < 1000; i++)
+            {
+                string num = Convert.ToString(i);
+                int sum = 0;
+                foreach (char dig in num)
+                {
+                    string test = Convert.ToString(dig);
+                    int test2 = Convert.ToInt32(test);
+                    sum += (test2 * test2 * test2);
+                }
+                if (sum == i)
+                {
+                    Console.WriteLine(sum);
+                }
+            }
+        }
+    }
+}
