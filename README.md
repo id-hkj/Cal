@@ -1,7 +1,8 @@
-# Cal
-Creates command-line calendars. Based on https://programmingpraxis.com/2010/01/01/cal-2/. This is a project to aid in my learning of C#.
+# Mini Programs
+A collection of small programs.
 
-# COMMANDS
+# CAL
+Creates command-line calendars.
 
 cal - outputs a calendar for the current month
 
